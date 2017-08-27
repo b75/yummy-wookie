@@ -1,0 +1,17 @@
+{{template "game-header.html"}}
+
+<h1>Game</h1>
+
+<a href="/index">Back to index</a>
+
+<table>
+	<tr>
+		<td><b><p id="status"></p></b></td>
+		<td><button type="button" id="close-connection">Close connection</button></td>
+		<td><button type="button" id="open-connection">Open connection</button></td>
+	</tr>
+</table>
+
+<canvas id="map" width="480" height="320" style="border: 1px solid black;"></canvas>
+
+{{template "footer.html"}}

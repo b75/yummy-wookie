@@ -92,7 +92,6 @@ $(function() {
 
 	if (Game.ok()) {
 		setInterval(function() {
-			World.update();
 			World.draw();
 		}, 200);
 	}

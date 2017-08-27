@@ -45,7 +45,7 @@ talkloop:
 		case msg := <-readChan:
 			log.Printf("message: %s", msg)
 		case upd := <-worldChan:
-			if err = c.WriteJSON(upd); err != nil {
+			if err = c.WriteMessage(1, upd); err != nil {
 				log.Printf("write error: %v", err)
 			}
 		}

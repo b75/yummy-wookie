@@ -20,12 +20,14 @@ var Conn = (function() {
 			if (state !== "initial" && state !== "closed") {
 				return;
 			}
+			setState("checking");
 
 			if (!window["WebSocket"]) {
 				setState("failed");
 				console.error("websockets not supported");
 				return;
 			}
+			setState("connecting");
 
 			conn = new WebSocket("ws://127.0.0.1:8081/connect");
 			conn.onopen = function() {
@@ -37,10 +39,15 @@ var Conn = (function() {
 				setState("closed");
 			};
 			conn.onmessage = function(event) {
-				console.log("msg", event);
+				if (!event.isTrusted) {
+					console.error("untrusted event", event);
+					return;
+				}
+				World.update(event.data);
 			};
 			conn.onerror = function(error) {
 				console.error("connection error:", error);
+				setState("failed");
 			};
 		},
 

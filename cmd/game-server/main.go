@@ -7,7 +7,7 @@ import (
 	"log"
 	"net/http"
 
-	"m75.com/game/util"
+	"github.com/b75/yummy-wookie/util"
 )
 
 type Config struct {

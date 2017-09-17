@@ -39,23 +39,6 @@ func main() {
 		log.Fatal("TplDir not set")
 	}
 
-	/*
-		fmap := template.FuncMap{
-			"aidontime": func(t time.Time) string {
-				return t.Format(AIDON_TIME_FORMAT)
-			},
-			"utcnow": func() time.Time {
-				return time.Now().In(time.UTC)
-			},
-			"uuid": func() string {
-				return util.Uuid()
-			},
-			"minuteadd": func(t time.Time, minutes int) time.Time {
-				return t.Add(time.Duration(minutes) * time.Minute)
-			},
-		}
-	*/
-
 	fmap := template.FuncMap{}
 
 	tpls, err = util.LoadTemplates(conf.TplDir, fmap)

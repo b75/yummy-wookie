@@ -43,7 +43,7 @@ talkloop:
 		case <-closeChan:
 			break talkloop
 		case msg := <-readChan:
-			log.Printf("message: %s", msg)
+			world.Player.AddActions(string(msg)) // TODO player -> human mapping
 		case upd := <-worldChan:
 			if err = c.WriteMessage(1, upd); err != nil {
 				log.Printf("write error: %v", err)

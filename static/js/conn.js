@@ -31,7 +31,6 @@ var Conn = (function() {
 
 			conn = new WebSocket("ws://127.0.0.1:8081/connect");
 			conn.onopen = function() {
-				conn.send("Hello world!");
 				setState("open");
 			};
 			conn.onclose = function(event) {
@@ -43,7 +42,7 @@ var Conn = (function() {
 					console.error("untrusted event", event);
 					return;
 				}
-				World.update(event.data);
+				World.serverUpdate(event.data);
 			};
 			conn.onerror = function(error) {
 				console.error("connection error:", error);
@@ -59,6 +58,16 @@ var Conn = (function() {
 			conn.close();
 			setState("closed");
 			conn = null;
+		},
+
+		send: function(data) {
+			if (!data || typeof data !== "string") {
+				return;
+			}
+			if (state !== "open") {
+				return;
+			}
+			conn.send(data);
 		},
 
 		onStateChange: function(f) {

@@ -39,6 +39,7 @@ var Game = (function() {
 			}
 
 			console.log(width, "x", height);
+			Util.setScreenSize(width, height);
 
 			ok = true;
 		},
@@ -90,9 +91,50 @@ $(function() {
 		Conn.open();
 	});
 
+	window.addEventListener("keypress", function(event) {
+		switch (event.code) {
+		case "KeyF":
+			World.toggleFollowMode();
+		}
+	});
+
+	window.addEventListener("keydown", function(event) {
+		switch (event.code) {
+		case "KeyW":
+			World.setKeyState("w", true);
+			break;
+		case "KeyA":
+			World.setKeyState("a", true);
+			break;
+		case "KeyS":
+			World.setKeyState("s", true);
+			break;
+		case "KeyD":
+			World.setKeyState("d", true);
+			break;
+		}
+	});
+
+	window.addEventListener("keyup", function(event) {
+		switch (event.code) {
+		case "KeyW":
+			World.setKeyState("w", false);
+			break;
+		case "KeyA":
+			World.setKeyState("a", false);
+			break;
+		case "KeyS":
+			World.setKeyState("s", false);
+			break;
+		case "KeyD":
+			World.setKeyState("d", false);
+			break;
+		}
+	});
+
 	if (Game.ok()) {
-		setInterval(function() {
-			World.draw();
-		}, 200);
+		setInterval(World.sendActions, 20);
+		setInterval(World.update, 20);
+		setInterval(World.draw, 20);
 	}
 });
